@@ -688,7 +688,6 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         //Slightly darken the background color a bit for more contrast
         backgroundDarkHsv[2] *= 0.95;
         int backgroundDarker = Color.HSVToColor(backgroundDarkHsv);
-        miPagerIndicator.setPageIndicatorColor(backgroundDarker);
         ViewCompat.setBackgroundTintList(miButtonNext, ColorStateList.valueOf(backgroundDarker));
         ViewCompat.setBackgroundTintList(miButtonBack, ColorStateList.valueOf(backgroundDarker));
 
@@ -698,23 +697,6 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         ViewCompat.setBackgroundTintList(miButtonCta.getChildAt(0), ColorStateList.valueOf(backgroundButtonCta));
         ViewCompat.setBackgroundTintList(miButtonCta.getChildAt(1), ColorStateList.valueOf(backgroundButtonCta));
 
-        int iconColor;
-        if (ColorUtils.calculateLuminance(backgroundDark) > 0.4) {
-            //Light background
-            iconColor = ContextCompat.getColor(this, R.color.mi_icon_color_light);
-        } else {
-            //Dark background
-            iconColor = ContextCompat.getColor(this, R.color.mi_icon_color_dark);
-        }
-        miPagerIndicator.setCurrentPageIndicatorColor(iconColor);
-        DrawableCompat.setTint(miButtonNext.getDrawable(), iconColor);
-        DrawableCompat.setTint(miButtonBack.getDrawable(), iconColor);
-
-        @ColorInt
-        int textColorButtonCta = buttonCtaTintMode == BUTTON_CTA_TINT_MODE_TEXT ?
-                backgroundDarker : iconColor;
-        ((Button) miButtonCta.getChildAt(0)).setTextColor(textColorButtonCta);
-        ((Button) miButtonCta.getChildAt(1)).setTextColor(textColorButtonCta);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(backgroundDark);
