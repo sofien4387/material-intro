@@ -1413,7 +1413,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         updateButtonBackDrawable();
         updateButtonNextDrawable();
         updateScrollPositions();
-        lockSwipeIfNeeded();
+        //lockSwipeIfNeeded();
     }
 
     private class IntroPageChangeListener extends FadeableViewPager.SimpleOnOverscrollPageChangeListener {
@@ -1428,7 +1428,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
 
             //Lock while scrolling a slide near its edges to lock (uncommon) multiple page swipes
             if (Math.abs(positionOffset) < 0.1f) {
-                lockSwipeIfNeeded();
+               // lockSwipeIfNeeded();
             }
 
             updateButtonNextDrawable();
@@ -1439,7 +1439,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         public void onPageSelected(int position) {
             IntroActivity.this.position = position;
             updateTaskDescription();
-            lockSwipeIfNeeded();
+            //lockSwipeIfNeeded();
         }
     }
 
