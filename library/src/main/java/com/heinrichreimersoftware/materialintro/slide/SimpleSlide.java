@@ -159,23 +159,13 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
     @Override
     public CharSequence getButtonCtaLabel() {
         updatePermissions();
-        if (permissions == null) {
-            return buttonCtaLabel;
-        }
-        Context context = fragment.getContext();
-        if (context != null)
-            return context.getResources().getQuantityText(
-                    R.plurals.mi_label_grant_permission, permissions.length);
         return buttonCtaLabel;
     }
 
     @Override
     public int getButtonCtaLabelRes() {
         updatePermissions();
-        if (permissions == null) {
-            return buttonCtaLabelRes;
-        }
-        return 0;
+        return buttonCtaLabelRes;
     }
 
     private synchronized void updatePermissions() {
