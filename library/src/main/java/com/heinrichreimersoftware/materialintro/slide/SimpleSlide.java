@@ -166,7 +166,7 @@ public class SimpleSlide implements Slide, RestorableSlide, ButtonCtaSlide {
         if (context != null)
             return context.getResources().getQuantityText(
                     R.plurals.mi_label_grant_permission, permissions.length);
-        return null;
+        return buttonCtaLabel;
     }
 
     @Override
