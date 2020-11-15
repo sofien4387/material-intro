@@ -156,7 +156,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
     private int buttonBackFunction = BUTTON_BACK_FUNCTION_SKIP;
     @ButtonCtaTintMode
     private int buttonCtaTintMode = BUTTON_CTA_TINT_MODE_BACKGROUND;
-    private NavigationPolicy navigationPolicy = null;
+   // private NavigationPolicy navigationPolicy = null;
     private List<OnNavigationBlockedListener> navigationBlockedListeners = new ArrayList<>();
     private CharSequence buttonCtaLabel = null;
     @StringRes
@@ -429,12 +429,12 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
 
         if (position > lastPosition) {
             // Go forward
-            while (newPosition < position && canGoForward(newPosition, true)) {
+            while (newPosition < position) {
                 newPosition++;
             }
         } else if (position < lastPosition) {
             // Go backward
-            while (newPosition > position && canGoBackward(newPosition, true)) {
+            while (newPosition > position) {
                 newPosition--;
             }
         } else {
@@ -520,43 +520,43 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
     }
 
     private boolean canGoForward(int position, boolean notifyListeners) {
-        if (position >= getCount()) {
-            return false;
-        }
-        if (position < 0) {
-            return true;
-        }
-
-        if (buttonNextFunction == BUTTON_NEXT_FUNCTION_NEXT && position >= getCount() - 1)
-            //Block finishing when button "next" function is not "finish".
-            return false;
-
-        boolean canGoForward = (navigationPolicy == null || navigationPolicy.canGoForward(position)) &&
-                getSlide(position).canGoForward();
-        if (!canGoForward && notifyListeners) {
-            for (OnNavigationBlockedListener listener : navigationBlockedListeners) {
-                listener.onNavigationBlocked(position, OnNavigationBlockedListener.DIRECTION_FORWARD);
-            }
-        }
-        return canGoForward;
+//        if (position >= getCount()) {
+//            return false;
+//        }
+//        if (position < 0) {
+//            return true;
+//        }
+//
+//        if (buttonNextFunction == BUTTON_NEXT_FUNCTION_NEXT && position >= getCount() - 1)
+//            //Block finishing when button "next" function is not "finish".
+//            return false;
+//
+//        boolean canGoForward = (navigationPolicy == null || navigationPolicy.canGoForward(position)) &&
+//                getSlide(position).canGoForward();
+//        if (!canGoForward && notifyListeners) {
+//            for (OnNavigationBlockedListener listener : navigationBlockedListeners) {
+//                listener.onNavigationBlocked(position, OnNavigationBlockedListener.DIRECTION_FORWARD);
+//            }
+//        }
+        return true;
     }
 
     private boolean canGoBackward(int position, boolean notifyListeners) {
-        if (position <= 0) {
-            return false;
-        }
-        if (position >= getCount()) {
-            return true;
-        }
-
-        boolean canGoBackward = (navigationPolicy == null || navigationPolicy.canGoBackward(position)) &&
-                getSlide(position).canGoBackward();
-        if (!canGoBackward && notifyListeners) {
-            for (OnNavigationBlockedListener listener : navigationBlockedListeners) {
-                listener.onNavigationBlocked(position, OnNavigationBlockedListener.DIRECTION_BACKWARD);
-            }
-        }
-        return canGoBackward;
+//        if (position <= 0) {
+//            return false;
+//        }
+//        if (position >= getCount()) {
+//            return true;
+//        }
+//
+//        boolean canGoBackward = (navigationPolicy == null || navigationPolicy.canGoBackward(position)) &&
+//                getSlide(position).canGoBackward();
+//        if (!canGoBackward && notifyListeners) {
+//            for (OnNavigationBlockedListener listener : navigationBlockedListeners) {
+//                listener.onNavigationBlocked(position, OnNavigationBlockedListener.DIRECTION_BACKWARD);
+//            }
+//        }
+        return true;
     }
 
 
@@ -1206,10 +1206,9 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         updateButtonCta();
     }
 
-    @SuppressWarnings("unused")
-    public void setNavigationPolicy(NavigationPolicy navigationPolicy) {
-        this.navigationPolicy = navigationPolicy;
-    }
+//    public void setNavigationPolicy(NavigationPolicy navigationPolicy) {
+//        this.navigationPolicy = navigationPolicy;
+//    }
 
     @SuppressWarnings("unused")
     public void addOnNavigationBlockedListener(OnNavigationBlockedListener listener) {
@@ -1413,7 +1412,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         updateButtonBackDrawable();
         updateButtonNextDrawable();
         updateScrollPositions();
-        //lockSwipeIfNeeded();
+        lockSwipeIfNeeded();
     }
 
     private class IntroPageChangeListener extends FadeableViewPager.SimpleOnOverscrollPageChangeListener {
@@ -1428,7 +1427,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
 
             //Lock while scrolling a slide near its edges to lock (uncommon) multiple page swipes
             if (Math.abs(positionOffset) < 0.1f) {
-               // lockSwipeIfNeeded();
+                lockSwipeIfNeeded();
             }
 
             updateButtonNextDrawable();
@@ -1439,7 +1438,7 @@ public class IntroActivity extends AppCompatActivity implements IntroNavigation 
         public void onPageSelected(int position) {
             IntroActivity.this.position = position;
             updateTaskDescription();
-            //lockSwipeIfNeeded();
+            lockSwipeIfNeeded();
         }
     }
 
